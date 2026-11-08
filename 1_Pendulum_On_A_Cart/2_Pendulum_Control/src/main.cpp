@@ -16,6 +16,12 @@ int main()
     // Linealizamos y calculamos K
     const LinearModel lin=model.linearize();
     const Mat4 Q=identity();
+    const double R=1.0;
+    const Vec4 K=computeLQRGain(lin.A, lin.B,Q,R);
+    std::cout<<"K=["<<K[0]<<", "<<K[1]<<", "<<K[2]<<", "<<K[3]<<"]"<<std::endl;
+    LQRController controller(K[0],K[1],K[2],K[3]);
+
+
     State state;
 
     state.x = 0.0;
@@ -28,6 +34,8 @@ int main()
     const double force = 0.0;
     const int n_steps= static_cast<int>(std::round(t_final/dt));
 
+
+
     std::ofstream file("results.csv");
     file << "t,x,x_dot,theta,theta_dot\n";
     for (int i = 0; i <= n_steps; ++i) {
@@ -35,7 +43,7 @@ int main()
         file << t << "," << state.x << "," << state.x_dot << "," << state.theta << "," << state.theta_dot << "\n";
         state = rk4Step(PendulumModel(), state, force, dt);
     }
-    file.close();
-    std::cout << "Simulation completed. Results saved to results.csv" << std::endl;
+   //file.close();
+    std::cout << "Estado final: x=" << state.x << " theta=" << state.theta << std::endl;
     return 0;
 }
