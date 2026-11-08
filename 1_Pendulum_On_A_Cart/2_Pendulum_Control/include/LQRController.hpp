@@ -1,6 +1,6 @@
 #pragma once
 
-#include "A_State.hpp"
+#include "State.hpp"
 
 // Controlador por realimentación de estado: F = -K * x
 class LQRController {

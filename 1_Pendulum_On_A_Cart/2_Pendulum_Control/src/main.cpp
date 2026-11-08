@@ -6,9 +6,16 @@
 #include "PendulumModel.hpp"
 #include "Integrator.hpp"
 #include "Riccati.hpp"
+#include "LinearModel.hpp"
+#include "LQRController.hpp"
+#include "Matrix.hpp"
 
 int main()
 {
+    PendulumModel model;
+    // Linealizamos y calculamos K
+    const LinearModel lin=model.linearize();
+    const Mat4 Q=identity();
     State state;
 
     state.x = 0.0;
