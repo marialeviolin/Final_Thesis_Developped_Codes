@@ -38,3 +38,19 @@ State PendulumModel::derivatives(const State& state, double force) const{
 
 	return d;
 }
+
+LinearModel PendulumModel::linearize() const {
+    const double p = I * (M + m) + M * m * l * l;
+
+    LinearModel lin;
+    lin.A = zeros();
+    lin.A[0][1] = 1.0;
+    lin.A[1][1] = -(I + m * l * l) * b / p;
+    lin.A[1][2] = (m * m * g * l * l) / p;
+    lin.A[2][3] = 1.0;
+    lin.A[3][1] = -(m * l * b) / p;
+    lin.A[3][2] = (m * g * l * (M + m)) / p;
+
+    lin.B = {0.0, (I + m * l * l) / p, 0.0, m * l / p};
+    return lin;
+}
