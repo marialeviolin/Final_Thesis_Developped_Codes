@@ -31,19 +31,31 @@ int main()
 
     const double dt = 0.001; //pasodel tiempo
     const double t_final = 1.0;
-    const double force = 0.0;
     const int n_steps= static_cast<int>(std::round(t_final/dt));
 
 
 
     std::ofstream file("results.csv");
-    file << "t,x,x_dot,theta,theta_dot\n";
-    for (int i = 0; i <= n_steps; ++i) {
-        double t = i * dt;
-        file << t << "," << state.x << "," << state.x_dot << "," << state.theta << "," << state.theta_dot << "\n";
-        state = rk4Step(PendulumModel(), state, force, dt);
-    }
-   //file.close();
+    if (!file.is_open()) {
+        std::cerr << "ERROR: no se pudo abrir results.csv (¿esta abierto en Excel?)" << std::endl;
+    return 1;
+}
+    file << "t,x,x_dot,theta,theta_dot,force\n";
+
+
+
+std::cout << "F(0) = " << controller.computeForce(state) << std::endl;
+for (int i = 0; i <= n_steps; ++i)
+{
+    const double t = i * dt;
+    const double force = controller.computeForce(state);   // F = -K x, se recalcula en cada paso
+
+    file << t << "," << state.x << "," << state.x_dot << ","
+         << state.theta << "," << state.theta_dot << "," << force << "\n";
+
+    state = rk4Step(model, state, force, dt);
+}
+   file.close();
     std::cout << "Estado final: x=" << state.x << " theta=" << state.theta << std::endl;
     return 0;
 }

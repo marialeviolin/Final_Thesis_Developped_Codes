@@ -7,6 +7,5 @@ LQRController::LQRController(double k_x, double k_x_dot, double k_theta, double 
 
 double LQRController::computeForce(const State& state) const
 {
-    // u = -K x  (la referencia es el equilibrio: todo cero)
     return -(k1 * state.x + k2 * state.x_dot + k3 * state.theta + k4 * state.theta_dot);
 }
