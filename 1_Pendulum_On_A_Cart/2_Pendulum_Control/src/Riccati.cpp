@@ -25,7 +25,7 @@ Vec4 computeLQRGain(const Mat4& A, const Vec4& B, const Mat4& Q, double R) {
     }
 
 Vec4 K=multiply(P,B);
-for (int i=0;i<4;++i) K[i]/R;
+for (int i=0;i<4;++i) K[i]/=R; // estudiar a qué se debe este comando
 
 return K;
 }
