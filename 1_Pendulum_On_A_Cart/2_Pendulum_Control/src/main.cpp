@@ -26,7 +26,7 @@ int main()
 
     state.x = 0.0;
     state.x_dot = 0.0;
-    state.theta = 0.1;
+    state.theta = 0.01;
     state.theta_dot = 0.0;
 
     const double dt = 0.001; //pasodel tiempo
@@ -50,8 +50,10 @@ for (int i = 0; i <= n_steps; ++i)
     const double t = i * dt;
     const double force = controller.computeForce(state);   // F = -K x, se recalcula en cada paso
 
+
+ if (i % 10 == 0) {   
     file << t << "," << state.x << "," << state.x_dot << ","
-         << state.theta << "," << state.theta_dot << "," << force << "\n";
+         << state.theta << "," << state.theta_dot << "," << force << "\n";}
 
     state = rk4Step(model, state, force, dt);
 }
