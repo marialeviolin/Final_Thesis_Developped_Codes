@@ -6,8 +6,8 @@
 # include "State.hpp"
 # include "PendulumModel.hpp"
 # include "Integrator.hpp"
-# include "BackwardPass.cpp"
-# include "Matrix.cpp"
+# include "BackwardPass.hpp"
+# include "Matrix.hpp"
 
 int main(){
 
