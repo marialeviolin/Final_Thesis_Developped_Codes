@@ -31,7 +31,7 @@ int main(){
     State state;
     state.x=0.0;
     state.x_dot=0.0;
-    state.theta=1;
+    state.theta=0.01;
     state.theta_dot=0;
 
     std::ofstream file("results.csv");
@@ -45,9 +45,9 @@ for(int i=0;i<=n_steps;++i){
         const Vec4& K = Ks[i];
         const double force = -(K[0] * state.x + K[1] * state.x_dot
                              + K[2] * state.theta + K[3] * state.theta_dot);
-
+        if (i%10==0){
         file << t << "," << state.x << "," << state.x_dot << ","
-             << state.theta << "," << state.theta_dot << "," << force << "\n";
+             << state.theta << "," << state.theta_dot << "," << force << "\n";}
 
         state = rk4Step(model, state, force, dt);
     }
