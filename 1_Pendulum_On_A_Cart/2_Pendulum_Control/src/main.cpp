@@ -30,7 +30,7 @@ int main()
     state.theta_dot = 0.0;
 
     const double dt = 0.001; //pasodel tiempo
-    const double t_final = 1.0;
+    const double t_final = 10.0;
     const int n_steps= static_cast<int>(std::round(t_final/dt));
 
 
