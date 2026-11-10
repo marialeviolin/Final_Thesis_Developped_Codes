@@ -1,4 +1,5 @@
 #include "PendulumModel.hpp"
+#include "LinearModel.hpp"
 #include <cmath>
 
 PendulumModel::PendulumModel(){
