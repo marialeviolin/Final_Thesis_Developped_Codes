@@ -26,7 +26,7 @@ int main()
 
     state.x = 0.0;
     state.x_dot = 0.0;
-    state.theta = 1;
+    state.theta = 0.1;
     state.theta_dot = 0.0;
 
     const double dt = 0.001; //pasodel tiempo
