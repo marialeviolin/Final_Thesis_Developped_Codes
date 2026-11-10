@@ -10,5 +10,11 @@ std::vector<Vec4> backwardPass(const Mat4& A, const Vec4& B, const Mat4& Q, doub
         for (int i=0;i<4;++i) Kk[i]/=R;
 
         K[k]=Kk;
+        const Vec4 PB=multiply(P,B);
+        Mat4 rhs=add(multiply(At,P),multiply(P,A));
+        rhs=add(rhs,scale(-1.0/R,outer(PB,PB)));
+        rhs = add(rhs, Q);
+        P=add(P,scale(dt,rhs));
     }
+    return K;
 } 
