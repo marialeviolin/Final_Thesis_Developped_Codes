@@ -31,7 +31,7 @@ int main(){
     State state;
     state.x=0.0;
     state.x_dot=0.0;
-    state.theta=0.1;
+    state.theta=1;
     state.theta_dot=0;
 
     std::ofstream file("results.csv");
